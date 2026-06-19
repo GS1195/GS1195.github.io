@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gourav Shukla — Computational Chemist</title>
+<meta name="description" content="Gourav Shukla, PhD researcher in physical chemistry at the University of Münster, studying lithium-ion transport in hybrid solid-state battery electrolytes through molecular dynamics simulation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d1b2a;
+  --ink-soft:#3d4f63;
+  --paper:#f6f4ef;
+  --paper-deep:#ece8df;
+  --line:#cfc8bb;
+  --li:#c6532f;          /* lithium ion — warm vermilion */
+  --li-glow:rgba(198,83,47,.16);
+  --host:#2b6c7a;        /* host lattice — teal */
+  --host-soft:rgba(43,108,122,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+a{color:inherit}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
+#lattice{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero .wrap{position:relative;z-index:2;width:100%}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--host);margin-bottom:1.4rem;
+}
+.eyebrow .dot{color:var(--li)}
+h1{
+  font-family:'Fraunces',serif;
+  font-weight:400;
+  font-size:clamp(2.9rem,8vw,6.2rem);
+  line-height:.96;
+  letter-spacing:-.015em;
+  margin-bottom:1.6rem;
+}
+h1 em{font-style:italic;color:var(--li)}
+.lede{
+  font-size:clamp(1.05rem,1.6vw,1.3rem);
+  max-width:46ch;color:var(--ink-soft);
+  margin-bottom:2.4rem;
+}
+.hero-meta{
+  display:flex;flex-wrap:wrap;gap:1.6rem;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.82rem;color:var(--ink-soft);
+}
+.hero-meta span{display:inline-flex;align-items:center;gap:.5rem}
+.hero-meta .key{color:var(--host)}
+
+.scrollcue{
+  position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);
+  z-index:2;font-family:'JetBrains Mono',monospace;font-size:.66rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);
+  opacity:.7;animation:bob 2.6s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+
+/* ---------- SECTION SHELL ---------- */
+section{padding:6.5rem 0;position:relative}
+.sec-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:3rem}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--li)}
+.sec-title{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(1.6rem,3vw,2.3rem);letter-spacing:-.01em}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:3.5rem;align-items:start}
+.about-grid p{font-size:1.08rem;color:var(--ink-soft);margin-bottom:1.2rem}
+.about-grid p strong{color:var(--ink);font-weight:600}
+.focus-card{
+  background:var(--paper-deep);border:1px solid var(--line);
+  padding:1.8rem;border-radius:2px;
+}
+.focus-card h3{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--host);margin-bottom:1.1rem;font-weight:500;
+}
+.focus-list{list-style:none}
+.focus-list li{
+  padding:.65rem 0;border-top:1px solid var(--line);
+  font-size:.94rem;display:flex;gap:.7rem;
+}
+.focus-list li:first-child{border-top:0}
+.focus-list .mk{color:var(--li);font-family:'JetBrains Mono',monospace}
+
+/* ---------- TIMELINE ---------- */
+.tl{position:relative;margin-left:.5rem}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:var(--line)}
+.tl-item{position:relative;padding:0 0 2.6rem 2.6rem}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{
+  content:"";position:absolute;left:0;top:6px;width:15px;height:15px;
+  border-radius:50%;background:var(--paper);border:2px solid var(--host);
+}
+.tl-item.li-node::before{border-color:var(--li);background:var(--li);box-shadow:0 0 0 4px var(--li-glow)}
+.tl-when{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--li);margin-bottom:.3rem}
+.tl-what{font-family:'Fraunces',serif;font-size:1.22rem;font-weight:500;margin-bottom:.25rem}
+.tl-where{color:var(--ink-soft);font-size:.96rem}
+.tl-detail{color:var(--ink-soft);font-size:.9rem;margin-top:.4rem;max-width:60ch}
+
+/* ---------- RESEARCH / PROJECTS ---------- */
+.proj{display:grid;gap:0}
+.proj-row{
+  display:grid;grid-template-columns:auto 1fr auto;gap:2rem;align-items:baseline;
+  padding:1.9rem 0;border-top:1px solid var(--line);
+  transition:padding-left .35s ease;
+}
+.proj-row:hover{padding-left:1rem}
+.proj-row .tag{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--host);letter-spacing:.05em;white-space:nowrap}
+.proj-row .body h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.3rem;margin-bottom:.4rem;line-height:1.25}
+.proj-row .body p{color:var(--ink-soft);font-size:.95rem;max-width:62ch}
+.proj-row .who{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--ink-soft);text-align:right;white-space:nowrap}
+
+/* ---------- PUBLICATIONS ---------- */
+.pubs{display:flex;flex-direction:column;gap:0}
+.pub{
+  display:grid;grid-template-columns:5.5rem 1fr;gap:1.8rem;
+  padding:1.6rem 0;border-top:1px solid var(--line);
+}
+.pub .yr{font-family:'JetBrains Mono',monospace;font-size:1rem;color:var(--li)}
+.pub .status{display:block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--host);margin-top:.3rem}
+.pub .meta .title{font-family:'Fraunces',serif;font-size:1.12rem;font-weight:500;line-height:1.35;margin-bottom:.4rem}
+.pub .meta .auth{color:var(--ink-soft);font-size:.9rem;line-height:1.55}
+.pub .meta .venue{font-style:italic}
+.you{color:var(--li);font-weight:600}
+
+/* ---------- SKILLS ---------- */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.6rem}
+.skill-col h3{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--host);margin-bottom:.9rem;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{
+  font-family:'JetBrains Mono',monospace;font-size:.8rem;
+  padding:.38rem .8rem;border:1px solid var(--line);border-radius:2px;
+  background:var(--paper-deep);
+}
+
+/* ---------- CONTACT ---------- */
+.contact{background:var(--ink);color:var(--paper);border-radius:3px;padding:clamp(2.4rem,5vw,4rem);position:relative;overflow:hidden}
+.contact::after{
+  content:"";position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;
+  border-radius:50%;border:1px solid rgba(246,244,239,.12);
+}
+.contact::before{
+  content:"";position:absolute;right:30px;bottom:120px;width:14px;height:14px;border-radius:50%;
+  background:var(--li);box-shadow:0 0 24px 4px rgba(198,83,47,.5);
+}
+.contact h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1.4rem;line-height:1.05;position:relative;z-index:1}
+.contact h2 em{font-style:italic;color:var(--li)}
+.contact-links{display:flex;flex-wrap:wrap;gap:.9rem;position:relative;z-index:1}
+.clink{
+  font-family:'JetBrains Mono',monospace;font-size:.86rem;
+  padding:.7rem 1.2rem;border:1px solid rgba(246,244,239,.25);border-radius:2px;
+  text-decoration:none;transition:all .25s ease;display:inline-flex;align-items:center;gap:.6rem;
+}
+.clink:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.clink .ar{transition:transform .25s ease}
+.clink:hover .ar{transform:translate(2px,-2px)}
+
+footer{padding:3rem 0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--ink-soft)}
+footer .pulse{color:var(--li)}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:760px){
+  .about-grid{grid-template-columns:1fr;gap:2.2rem}
+  .proj-row{grid-template-columns:1fr;gap:.6rem}
+  .proj-row .who{text-align:left}
+  .proj-row:hover{padding-left:0}
+  .pub{grid-template-columns:1fr;gap:.5rem}
+  section{padding:4.5rem 0}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <canvas id="lattice"></canvas>
+  <div class="wrap">
+    <div class="eyebrow">Computational Physical Chemistry <span class="dot">•</span> Münster, DE</div>
+    <h1>Gourav<br>Shukla</h1>
+    <p class="lede">I model how lithium ions move through hybrid solid-state electrolytes — tracing the paths that decide whether the next generation of batteries works.</p>
+    <div class="hero-meta">
+      <span><span class="key">role</span> &nbsp;PhD Researcher, IPC</span>
+      <span><span class="key">method</span> &nbsp;Molecular Dynamics</span>
+      <span><span class="key">project</span> &nbsp;FestBatt-2 / BMBF</span>
+    </div>
+  </div>
+  <div class="scrollcue">scroll ↓</div>
+</header>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">The work</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>I'm a PhD researcher at the <strong>Institute of Physical Chemistry, University of Münster</strong>, with my thesis submitted. From 2022 to 2025 I worked within <strong>FestBatt-2</strong>, a BMBF-funded initiative advancing solid-state battery research from the atomistic scale up to industry.</p>
+        <p>My focus is the molecular modelling of highly conductive hybrid electrolytes — and in particular the <strong>interfacial ion dynamics</strong> where solid meets polymer, including grafted and grafted-free polymer interfaces. I study local transport and solvation in these heterogeneous systems through simulation.</p>
+        <p>Before Münster I earned a Master's in Chemical Engineering from <strong>IIT Gandhinagar</strong>, modelling supercapacitors with molecular dynamics and experiment, and a Bachelor's from <strong>MANIT Bhopal</strong>. A spell as a graduate engineer at Vedanta's aluminium and power operations gave me a feel for energy systems at industrial scale.</p>
+      </div>
+      <aside class="focus-card">
+        <h3>Research focus</h3>
+        <ul class="focus-list">
+          <li><span class="mk">Li⁺</span> Ion transport in hybrid electrolytes</li>
+          <li><span class="mk">∂</span> Interfacial dynamics, solid–polymer</li>
+          <li><span class="mk">⟂</span> Grafted &amp; grafted-free interfaces</li>
+          <li><span class="mk">~</span> Solvation in heterogeneous systems</li>
+          <li><span class="mk">∑</span> Structural &amp; dynamical characterisation</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== PATH / TIMELINE ===== -->
+<section id="path">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">The path</h2>
+    </div>
+    <div class="tl">
+      <div class="tl-item li-node">
+        <div class="tl-when">Since 2022</div>
+        <div class="tl-what">PhD in Physical Chemistry — thesis submitted</div>
+        <div class="tl-where">University of Münster, NRW, Germany</div>
+        <div class="tl-detail">Doctoral researcher on FestBatt-2 (BMBF), energy-density systems. Advised by Prof. Dr. Andreas Heuer, mentored by Dr. Diddo Diddens.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">2019 — 2021</div>
+        <div class="tl-what">M.Tech, Chemical Engineering</div>
+        <div class="tl-where">IIT Gandhinagar &nbsp;·&nbsp; CGPA 8.67</div>
+        <div class="tl-detail">Thesis: modelling and design of a supercapacitor via molecular dynamics and experiment, with Prof. Mithun Radhakrishna.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">2018 — 2019</div>
+        <div class="tl-what">Graduate Engineer Trainee</div>
+        <div class="tl-where">Vedanta Ltd — Aluminium &amp; Power, Jharsuguda</div>
+        <div class="tl-detail">Carbon unit, bake-oven: distributed control system operation for carbon-anode production. Root-cause analysis and safety practice.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-when">2014 — 2018</div>
+        <div class="tl-what">B.Tech, Chemical Engineering</div>
+        <div class="tl-where">MANIT Bhopal &nbsp;·&nbsp; CGPA 8.04</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== RESEARCH PROJECTS ===== -->
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Selected projects</h2>
+    </div>
+    <div class="proj">
+      <div class="proj-row">
+        <span class="tag">PhD · major</span>
+        <div class="body">
+          <h3>Li dynamics in hybrid electrolytes via simulation</h3>
+          <p>Investigating lithium-ion transport across different classes of hybrid electrolytes using atomistic and molecular dynamics simulation.</p>
+        </div>
+        <div class="who">Heuer · Diddens<br>Münster</div>
+      </div>
+      <div class="proj-row">
+        <span class="tag">M.Tech · major</span>
+        <div class="body">
+          <h3>Supercapacitor modelling &amp; design</h3>
+          <p>Electrode modelling of a supercapacitor combining molecular dynamics simulation with experimental characterisation of porous carbon materials.</p>
+        </div>
+        <div class="who">Radhakrishna<br>IIT Gandhinagar</div>
+      </div>
+      <div class="proj-row">
+        <span class="tag">M.Tech · minor</span>
+        <div class="body">
+          <h3>First-order melting of a KCl crystal</h3>
+          <p>Simulating the first-order melting transition of a cubic KCl crystal.</p>
+        </div>
+        <div class="who">Radhakrishna<br>IIT Gandhinagar</div>
+      </div>
+      <div class="proj-row">
+        <span class="tag">B.Tech · major</span>
+        <div class="body">
+          <h3>Oil from pyrolysis of LDPE plastics</h3>
+          <p>Producing oil through the pyrolysis of low-density polyethylene, with Prof. Bharat K. Mudhera.</p>
+        </div>
+        <div class="who">MANIT Bhopal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== PUBLICATIONS ===== -->
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Publications</h2>
+    </div>
+    <div class="pubs">
+      <div class="pub">
+        <div class="yr">2024<span class="status">Published</span></div>
+        <div class="meta">
+          <div class="title">Synergistic Enhancement of Mechanical and Electrochemical Properties in Grafted Polymer/Oxide Hybrid Electrolytes</div>
+          <div class="auth">Scharf, F., Krude, A., Lennartz, P., Clausnitzer, M., <span class="you">Shukla, G.</span>, Buchheit, A., Kempe, F., Diddens, D., Glomb, P., Mitchell, M.M., Danner, T. &nbsp;·&nbsp; <span class="venue">Small</span>, 2404537.</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2024<span class="status">Published</span></div>
+        <div class="meta">
+          <div class="title">Influence of Electrode Pore Size and Electrolyte on Carbon Aerogel Supercapacitors: Insights from Experimental Studies and Molecular Simulations</div>
+          <div class="auth">Kannur, S., Devi, M., Pasyanthi, J., Kunte, K., <span class="you">Shukla, G.</span>, Murugesan, P., Mohan, A., Nanaji, K., Sarada, B.V., Sharma, S., Sharma, S. &nbsp;·&nbsp; <span class="venue">The Journal of Physical Chemistry C</span>.</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2025<span class="status">In preparation</span></div>
+        <div class="meta">
+          <div class="title">Understanding Li-ion dynamics in LLZO–polycaprolactone hybrid systems using molecular dynamics simulation</div>
+          <div class="auth"><span class="you">Shukla, G.</span>, Kozdra, M., Diddens, D., Heuer, A.</div>
+        </div>
+      </div>
+      <div class="pub">
+        <div class="yr">2025<span class="status">In preparation</span></div>
+        <div class="meta">
+          <div class="title">Understanding Li-ion dynamics in grafted hybrid electrolytes using atomistic simulations</div>
+          <div class="auth"><span class="you">Shukla, G.</span>, Diddens, D., Heuer, A.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Toolkit</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h3>Simulation</h3>
+        <div class="chips">
+          <span class="chip">LAMMPS</span><span class="chip">VASP</span><span class="chip">VMD</span><span class="chip">MATLAB</span><span class="chip">Python</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <h3>Experimental</h3>
+        <div class="chips">
+          <span class="chip">XRD</span><span class="chip">SEM</span><span class="chip">BET</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <h3>Systems</h3>
+        <div class="chips">
+          <span class="chip">Linux</span><span class="chip">openSUSE</span><span class="chip">Windows</span>
+        </div>
+      </div>
+      <div class="skill-col">
+        <h3>Also</h3>
+        <div class="chips">
+          <span class="chip">LaTeX</span><span class="chip">ML basics</span><span class="chip">Neural networks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Let's talk transport,<br>interfaces, or <em>ions</em>.</h2>
+      <div class="contact-links">
+        <a class="clink" href="mailto:gshukla@uni-muenster.de">gshukla@uni-muenster.de <span class="ar">↗</span></a>
+        <a class="clink" href="mailto:shukla_gourav@alumni.iitgn.ac.in">IITGn alumni mail <span class="ar">↗</span></a>
+        <a class="clink" href="https://www.linkedin.com/in/gourav-shukla-319552101" target="_blank" rel="noopener">LinkedIn <span class="ar">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Münster, Germany &nbsp;<span class="pulse">•</span>&nbsp; Built with HTML &amp; a few thousand ions</div>
+</footer>
+
+<script>
+/* Lithium-ion-through-lattice hero animation.
+   A teal host lattice sits behind; a warm Li ion hops between sites,
+   leaving a fading trail — the central image of the research. */
+(function(){
+  const c = document.getElementById('lattice');
+  const ctx = c.getContext('2d');
+  let w,h,dpr,sites=[],ion,trail=[],reduce=false;
+  reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const css = getComputedStyle(document.documentElement);
+  const COL_HOST = css.getPropertyValue('--host').trim() || '#2b6c7a';
+  const COL_LI   = css.getPropertyValue('--li').trim()   || '#c6532f';
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio||1, 2);
+    w = c.clientWidth; h = c.clientHeight;
+    c.width = w*dpr; c.height = h*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    buildLattice();
+  }
+
+  function buildLattice(){
+    sites = [];
+    const gap = Math.max(64, Math.min(w,h)/9);
+    const cols = Math.ceil(w/gap)+2;
+    const rows = Math.ceil(h/gap)+2;
+    for(let i=0;i<rows;i++){
+      for(let j=0;j<cols;j++){
+        // slight stagger every other row -> lattice feel
+        const x = j*gap + (i%2? gap/2 : 0) - gap;
+        const y = i*gap - gap;
+        sites.push({x,y});
+      }
+    }
+    if(!ion){
+      ion = {x:w*0.2,y:h*0.55,tx:w*0.2,ty:h*0.55,t:1};
+      pickTarget();
+    }
+  }
+
+  function nearestRightward(){
+    // bias hops toward the right + downward so the ion drifts across the hero
+    let best=null,bd=Infinity;
+    for(const s of sites){
+      const dx=s.x-ion.x, dy=s.y-ion.y;
+      if(dx< gapGuess()*0.4) continue;
+      const d = dx*dx*0.6 + dy*dy;
+      if(d<bd && d>10){bd=d;best=s;}
+    }
+    return best;
+  }
+  function gapGuess(){return Math.max(64, Math.min(w,h)/9);}
+
+  function pickTarget(){
+    let t = nearestRightward();
+    if(!t || ion.x>w*1.05){ ion.x = -gapGuess(); ion.y = h*(0.25+Math.random()*0.5); t = nearestRightward(); }
+    if(t){ ion.fx=ion.x; ion.fy=ion.y; ion.tx=t.x; ion.ty=t.y; ion.t=0; }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+
+    // soft radial wash
+    const g = ctx.createRadialGradient(w*0.3,h*0.4,40, w*0.3,h*0.4, Math.max(w,h)*0.8);
+    g.addColorStop(0,'rgba(43,108,122,0.05)');
+    g.addColorStop(1,'rgba(43,108,122,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+
+    // lattice sites
+    for(const s of sites){
+      const dx=s.x-ion.x, dy=s.y-ion.y;
+      const near = Math.sqrt(dx*dx+dy*dy) < gapGuess()*1.3;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y, near?3.2:2.1, 0, Math.PI*2);
+      ctx.fillStyle = near ? hexA(COL_HOST,0.55) : hexA(COL_HOST,0.22);
+      ctx.fill();
+    }
+
+    // thin bonds to a few neighbours for structure
+    ctx.strokeStyle = hexA(COL_HOST,0.10);
+    ctx.lineWidth = 1;
+    const gp = gapGuess();
+    for(const s of sites){
+      for(const t2 of sites){
+        if(t2===s) continue;
+        const dx=t2.x-s.x, dy=t2.y-s.y;
+        const d=dx*dx+dy*dy;
+        if(d < gp*gp*1.15 && dx>=0 && dy>=0){
+          ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(t2.x,t2.y);ctx.stroke();
+        }
+      }
+    }
+
+    if(!reduce){
+      ion.t = Math.min(1, ion.t + 0.018);
+      const e = easeInOut(ion.t);
+      ion.x = ion.fx + (ion.tx-ion.fx)*e;
+      ion.y = ion.fy + (ion.ty-ion.fy)*e;
+      trail.push({x:ion.x,y:ion.y,a:1});
+      if(trail.length>34) trail.shift();
+      if(ion.t>=1) pickTarget();
+    }
+
+    // trail
+    for(let i=0;i<trail.length;i++){
+      const p=trail[i];
+      p.a *= 0.94;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y, 6*(i/trail.length)+1, 0, Math.PI*2);
+      ctx.fillStyle = hexA(COL_LI, p.a*0.20);
+      ctx.fill();
+    }
+
+    // the ion
+    ctx.beginPath();
+    ctx.arc(ion.x,ion.y, 16, 0, Math.PI*2);
+    ctx.fillStyle = hexA(COL_LI,0.14); ctx.fill();
+    ctx.beginPath();
+    ctx.arc(ion.x,ion.y, 7, 0, Math.PI*2);
+    ctx.fillStyle = COL_LI; ctx.fill();
+    ctx.beginPath();
+    ctx.arc(ion.x-2,ion.y-2, 2.4, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,0.6)'; ctx.fill();
+
+    requestAnimationFrame(draw);
+  }
+
+  function easeInOut(t){return t<0.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;}
+  function hexA(hex,a){
+    hex=hex.replace('#','');
+    if(hex.length===3) hex=hex.split('').map(x=>x+x).join('');
+    const r=parseInt(hex.slice(0,2),16),g=parseInt(hex.slice(2,4),16),b=parseInt(hex.slice(4,6),16);
+    return `rgba(${r},${g},${b},${a})`;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+</script>
+</body>
+</html>
